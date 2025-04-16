@@ -11,7 +11,7 @@ import Link from 'next/link';
 
 const CheckOut = () => {
 
-  const [cartItems, setCartItems] = useState([
+  const [cartItems, setCartItems] = useState([  
     {
       id: 1,
       name: "Mexican Pizza",
@@ -182,7 +182,7 @@ const CheckOut = () => {
                   <Menu.Item>
                     {({ active }) => (
                       <Link
-                        href="/branches/Branch1"  // Match your file naming
+                        href="/dashboard"  
                         className={`block px-4 py-2 text-sm ${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                           }`}
                       >
@@ -193,7 +193,7 @@ const CheckOut = () => {
                   <Menu.Item>
                     {({ active }) => (
                       <Link
-                        href="/branches/Branch2"  // Match your file naming
+                        href="/dashboard"
                         className={`block px-4 py-2 text-sm ${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                           }`}
                       >
