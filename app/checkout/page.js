@@ -9,8 +9,8 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import Navbar from '../components/Navbar';
 import Link from 'next/link';
 
-const page = () => {
-  // Sample cart items
+const CheckOut = () => {
+
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
@@ -319,4 +319,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default CheckOut;

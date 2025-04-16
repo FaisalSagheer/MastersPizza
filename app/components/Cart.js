@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 function Cart({ open, onClose }) {
   const [cartItems, setCartItems] = useState([
@@ -22,6 +22,10 @@ function Cart({ open, onClose }) {
     setCartItems(cartItems.filter(item => item.id !== id));
   };
 
+  const router = useRouter()
+  const CheckBtn = () => {
+    router.push('/checkout')
+  }
   return (
     <Dialog open={open} onClose={onClose} className="relative z-50">
       {/* Backdrop */}
@@ -107,12 +111,12 @@ function Cart({ open, onClose }) {
                   </p>
                   <div className="mt-6">
 
-                    <Link href="/checkout" className="flex items-center justify-center rounded-md border border-transparent bg-pizza-red px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-red-800">
+                    <button onClick={CheckBtn} className="flex items-center justify-center rounded-md border border-transparent bg-pizza-red px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-red-800">
                       Checkout
-                    </Link>
+                    </button>
 
                   </div>
-                  <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                  {/* <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                     <p>
                       or{' '}
                       <button
@@ -124,7 +128,7 @@ function Cart({ open, onClose }) {
                         <span aria-hidden="true"> &rarr;</span>
                       </button>
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Dialog.Panel>
