@@ -5,7 +5,7 @@ export default function Special() {
     {
       id: 1,
       src: "assets/pizza.jpg",
-      Pizza: "Pepperoni Feast",
+      food: "Pepperoni Feast",
       alt: "Pizza",
       subtitle: "Loaded with premium pepperoni.",
       price: "Rs. 1200",
@@ -14,7 +14,7 @@ export default function Special() {
     {
       id: 2,
       src: "assets/pizza.jpg",
-      Pizza: "Pepperoni Feast",
+      food: "Pepperoni Feast",
       alt: "Pizza",
       subtitle: "Loaded with premium pepperoni.",
       price: "Rs. 1200",
@@ -23,7 +23,7 @@ export default function Special() {
     {
       id: 3,
       src: "assets/pizza.jpg",
-      Pizza: "Pepperoni Feast",
+      food: "Pepperoni Feast",
       alt: "Pizza",
       subtitle: "Loaded with premium pepperoni.",
       price: "Rs. 1200",
@@ -32,16 +32,12 @@ export default function Special() {
     {
       id: 4,
       src: "assets/pizza.jpg",
-      Pizza: "Pepperoni Feast",
+      food: "Pepperoni Feast",
       alt: "Pizza",
       subtitle: "Loaded with premium pepperoni.",
       price: "Rs. 1200",
       crossedPrice: "Rs. 950"
     },
-
-    
-
-
   ]
   return (
     <section className="py-12 text-center">
@@ -52,7 +48,7 @@ export default function Special() {
             <div className="bg-white border border-gray-200 rounded-lg shadow pb-5 w-xs" key={items.id}>
 
               <img src={items.src} alt={items.alt} className="w-full h-60 object-cover rounded" />
-              <h4 className="mt-3 font-bold text-lg">{items.Pizza}</h4>
+              <h4 className="mt-3 font-bold text-lg">{items.food}</h4>
               <p className="text-gray-500 pt-2">{items.subtitle}</p>
 
               <span className='flex justify-around items-center mt-5'>

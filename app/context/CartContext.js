@@ -8,7 +8,7 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (id, src, pizza, price, quantity = 1) => {
+  const addToCart = (id, src, food, price, quantity = 1) => {
     setCartItems(prevItems => {
       // Check if item already exists in cart
       const existingItem = prevItems.find(item => item.id === id);
@@ -23,7 +23,7 @@ export function CartProvider({ children }) {
       }
 
       // Add new item to cart
-      return [...prevItems, { id, src, pizza, price, quantity }];
+      return [...prevItems, { id, src, food, price, quantity }];
     });
   };
 
@@ -39,8 +39,8 @@ export function CartProvider({ children }) {
 
   return (
     <CartContext.Provider value={{
-      cartItems, 
-      addToCart, 
+      cartItems,
+      addToCart,
       addToCart,
       removeFromCart,
       clearCart
