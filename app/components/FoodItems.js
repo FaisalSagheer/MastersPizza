@@ -9,13 +9,14 @@ import 'swiper/css/navigation';
 import Featured from './FoodItems/Featured';
 import Deals from './FoodItems/Deals';
 import Special from './FoodItems/FestiveDeals';
+import Drinks from './FoodItems/Drinks';
 
 
 export default function FoodItems() {
   const featuredRef = useRef(null);
   const dealsRef = useRef(null);
   const specialRef = useRef(null);
-
+  const drinkRef = useRef(null);
 
   const menuCategories = [
     { id: 1, name: "Pizzas", target: "special" },
@@ -24,7 +25,7 @@ export default function FoodItems() {
     { id: 4, name: "Wings", },
     { id: 5, name: "Salads", },
     { id: 6, name: "Desserts", },
-    { id: 7, name: "Drinks", },
+    { id: 7, name: "Drinks", target: "drink" },
     { id: 8, name: "Deals", target: "deals" }
   ];
 
@@ -39,6 +40,9 @@ export default function FoodItems() {
         break;
       case 'special':
         element = specialRef.current;
+        break;
+      case 'drink':
+        element = drinkRef.current;
         break;
       default:
         return;
@@ -119,6 +123,9 @@ export default function FoodItems() {
       </div>
       <div ref={featuredRef}>
         <Featured />
+      </div>
+      <div ref={drinkRef}>
+        <Drinks />
       </div>
     </>
   );
