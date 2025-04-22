@@ -1,30 +1,17 @@
-
-'use client'
-
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react';
+import { FiTrash2, FiEdit, FiPlus, FiRefreshCw } from 'react-icons/fi';
 
 function AddItems() {
-
   const [showAddItemModal, setShowAddItemModal] = useState(false);
-  const [newItem, setNewItem] = useState('');
-
-  const handleAddItem = () => {
-    if (newItem.trim()) {
-      alert(`Added: ${newItem}`);
-      setNewItem('');
-      setShowAddItemModal(false);
-    }
-  };
-  // Adding Orders
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentItemId, setCurrentItemId] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     category: 'pizza',
     price: '',
     description: '',
-    // ingredients: '',
-    isFeatured: false
+    image: null,
   });
-  const [imagePreview, setImagePreview] = useState(null);
   const [errors, setErrors] = useState({});
   const fileInputRef = useRef(null);
 
@@ -32,227 +19,278 @@ function AddItems() {
     { value: 'pizza', label: 'Pizza' },
     { value: 'sides', label: 'Sides' },
     { value: 'drinks', label: 'Drinks' },
-    { value: 'desserts', label: 'Desserts' }
+    { value: 'desserts', label: 'Desserts' },
   ];
 
+  // Load items from localStorage (or return empty array)
+  const getMenuItems = () => {
+    return JSON.parse(localStorage.getItem('menuItems')) || [];
+  };
+
+  // Save items to localStorage
+  const saveMenuItems = (items) => {
+    localStorage.setItem('menuItems', JSON.stringify(items));
+  };
+
+ 
+  // Handle image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result);
+        setFormData((prev) => ({ ...prev, image: reader.result }));
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.price || isNaN(formData.price)) newErrors.price = 'Valid price is required';
-    if (!formData.description.trim()) newErrors.description = 'Description is required';
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
+  // Form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      // Here you would typically send data to your backend
-      alert('Item added successfully!');
-      console.log('Form data:', { ...formData, image: imagePreview ? 'uploaded' : null });
-      // Reset form after submission
+    
+    // Validate
+    if (!formData.name.trim()) {
+      setErrors({ name: 'Name is required' });
+      return;
+    }
+    if (!formData.price || isNaN(formData.price)) {
+      setErrors({ price: 'Enter a valid price' });
+      return;
+    }
+
+    const items = getMenuItems();
+    let updatedItems;
+
+    if (isEditing) {
+      // Update existing item
+      updatedItems = items.map((item) =>
+        item.id === currentItemId ? { ...formData, id: currentItemId } : item
+      );
+    } else {
+      // Add new item
+      updatedItems = [...items, { ...formData, id: Date.now().toString() }];
+    }
+
+    saveMenuItems(updatedItems);
+    alert(isEditing ? '✅ Item updated!' : '✅ Item added!');
+    closeModal();
+  };
+
+  // Edit an item
+  const editItem = (id) => {
+    const item = getMenuItems().find((item) => item.id === id);
+    if (item) {
       setFormData({
-        name: '',
-        category: '',
-        price: '',
-        description: '',
-        // ingredients: '',
-        isFeatured: false
+        name: item.name,
+        category: item.category,
+        price: item.price,
+        description: item.description,
+        image: item.image,
       });
-      setImagePreview(null);
-      if (fileInputRef.current) fileInputRef.current.value = '';
+      setIsEditing(true);
+      setCurrentItemId(id);
+      setShowAddItemModal(true);
     }
   };
 
+  // Delete an item
+  const deleteItem = (id) => {
+    if (window.confirm('Delete this item?')) {
+      const updatedItems = getMenuItems().filter((item) => item.id !== id);
+      saveMenuItems(updatedItems);
+      alert('🗑️ Item deleted.');
+      // Force re-render
+      setFormData({ ...formData });
+    }
+  };
+
+  // Close modal & reset form
+  const closeModal = () => {
+    setShowAddItemModal(false);
+    setIsEditing(false);
+    setFormData({
+      name: '',
+      category: 'pizza',
+      price: '',
+      description: 'No Description',
+      image: null,
+    });
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const menuItems = getMenuItems();
+
   return (
-    <>
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+    <div className="p-4 bg-white rounded-lg shadow">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">Menu Items</h2>
+        <div className="flex space-x-2">
+         
+          <button
+            onClick={() => setShowAddItemModal(true)}
+            className="flex items-center px-3 py-2 bg-pizza-red text-white rounded hover:bg-red-700"
+          >
+            <FiPlus className="mr-1" /> Add Item
+          </button>
+        </div>
+      </div>
+
+      {menuItems.length === 0 ? (
+        <div className="p-8 text-center text-gray-500">
+          <p>No items yet. Click "Add Item" to start.</p>
+        </div>
+      ) : (
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone No.</th>
+              <th className="px-4 py-2 text-left">Image</th>
+              <th className="px-4 py-2 text-left">Name</th>
+              <th className="px-4 py-2 text-left">Description</th>
+              <th className="px-4 py-2 text-left">Category</th>
+              <th className="px-4 py-2 text-left">Price</th>
+              <th className="px-4 py-2 text-left">Actions</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {/* {orders.map((order) => (
-              <tr key={order.id} >
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{order.id}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.customer}</td>
-                <td className="px-6 py-4 text-sm text-gray-500">{order.items}</td>
-                <td className="px-6 py-4 text-sm text-gray-500">{order.Address}</td>
-                <td className="px-6 py-4 text-sm text-gray-500">{order.Phone}</td>
+          <tbody>
+            {menuItems.map((item) => (
+              <tr key={item.id}>
+                <td className="px-4 py-2">
+                  {item.image && (
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-12 h-12 object-cover rounded"
+                    />
+                  )}
+                </td>
+                <td className="px-4 py-2">{item.name}</td>
+                <td className="px-4 py-2">{item.description}</td>
+                <td className="px-4 py-2 capitalize">{item.category}</td>
+                <td className="px-4 py-2">Rs. {item.price}</td>
+                <td className="px-4 py-2">
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => editItem(item.id)}
+                      className="text-blue-500 hover:text-blue-700"
+                    >
+                      <FiEdit />
+                    </button>
+                    <button
+                      onClick={() => deleteItem(item.id)}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <FiTrash2 />
+                    </button>
+                  </div>
+                </td>
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
-        <button type='button' onClick={setShowAddItemModal} className='text-3xl'>+</button>
-        {/* Add Item Modal */}
-        {showAddItemModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="max-w-4xl mx-auto p-6">
-              <h1 className="text-3xl font-bold text-pizza-red mb-6">Add New Menu Item</h1>
+      )}
 
-              <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Left Column */}
-                  <div>
-                    {/* Image Upload */}
-                    <div className="mb-6">
-                      <label className="block text-gray-700 mb-2">Item Image</label>
-                      <div className="flex items-center space-x-4">
-                        <div className="border-2 border-dashed border-gray-300 rounded-lg w-32 h-32 flex items-center justify-center overflow-hidden">
-                          {imagePreview ? (
-                            <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
-                          ) : (
-                            <span className="text-gray-400">Preview</span>
-                          )}
-                        </div>
-                        <div>
-                          <input
-                            type="file"
-                            ref={fileInputRef}
-                            onChange={handleImageChange}
-                            accept="image/*"
-                            className="hidden"
-                            id="imageUpload"
-                          />
-                          <label
-                            htmlFor="imageUpload"
-                            className="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded cursor-pointer"
-                          >
-                            Choose Image
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Basic Info */}
-                    <div className="mb-4">
-                      <label className="block text-gray-700 mb-2">Name*</label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className={`w-full p-2 border rounded ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
-                      />
-                      {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-                    </div>
-
-                    <div className="mb-4">
-                      <label className="block text-gray-700 mb-2">Category*</label>
-                      <select
-                        name="category"
-                        value={formData.category}
-                        onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                      >
-                        {categories.map(cat => (
-                          <option key={cat.value} value={cat.value}>{cat.label}</option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="mb-4">
-                      <label className="block text-gray-700 mb-2">Price (Rs.)*</label>
-                      <input
-                        type="text"
-                        name="price"
-                        value={formData.price}
-                        onChange={handleChange}
-                        className={`w-full p-2 border rounded ${errors.price ? 'border-red-500' : 'border-gray-300'}`}
-                      />
-                      {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
-                    </div>
-                  </div>
-
-                  {/* Right Column */}
-                  <div>
-                    <div className="mb-4">
-                      <label className="block text-gray-700 mb-2">Description(optional)</label>
-                      <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        rows="3"
-                        className={`w-full p-2 border rounded ${errors.description ? 'border-red-500' : 'border-gray-300'}`}
-                      ></textarea>
-                      {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
-                    </div>
-
-                    {/* <div className="mb-4">
-                    <label className="block text-gray-700 mb-2">Ingredients</label>
-                    <textarea
-                      name="ingredients"
-                      value={formData.ingredients}
-                      onChange={handleChange}
-                      rows="3"
-                      className="w-full p-2 border border-gray-300 rounded"
-                      placeholder="Comma separated ingredients"
-                    ></textarea>
-                  </div> */}
-
-                    {/* <div className="flex items-center mb-6">
-                    <input
-                      type="checkbox"
-                      id="isFeatured"
-                      name="isFeatured"
-                      checked={formData.isFeatured}
-                      onChange={handleChange}
-                      className="h-4 w-4 text-pizza-red focus:ring-pizza-red border-gray-300 rounded"
-                    />
-                    <label htmlFor="isFeatured" className="ml-2 block text-gray-700">
-                      Feature this item on homepage
-                    </label>
-                  </div> */}
-                  </div>
-                </div>
-
-                <div className="flex justify-end space-x-4 mt-6">
-                  <button
-                    type="button"
-                    onClick={() => window.location.href = '/dashboard'}
-                    className="px-4 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-100"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-6 py-2 bg-pizza-red text-white rounded hover:bg-red-800"
-                  >
-                    Add Item
-                  </button>
-                </div>
-              </form>
+      {/* Add/Edit Modal */}
+      {showAddItemModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-bold">
+                {isEditing ? 'Edit Item' : 'Add New Item'}
+              </h3>
+              <button onClick={closeModal} className="text-gray-500 hover:text-gray-700">
+                ✕
+              </button>
             </div>
+            <form onSubmit={handleSubmit}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block mb-1">Item Image</label>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleImageChange}
+                    accept="image/*"
+                    className="w-full p-2 border rounded"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-1">Name*</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    className="w-full p-2 border rounded"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block mb-1">Category</label>
+                  <select
+                    name="category"
+                    value={formData.category}
+                    onChange={(e) =>
+                      setFormData({ ...formData, category: e.target.value })
+                    }
+                    className="w-full p-2 border rounded"
+                  >
+                    {categories.map((cat) => (
+                      <option key={cat.value} value={cat.value}>
+                        {cat.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block mb-1">Price (Rs.)*</label>
+                  <input
+                    type="number"
+                    name="price"
+                    value={formData.price}
+                    onChange={(e) =>
+                      setFormData({ ...formData, price: e.target.value })
+                    }
+                    className="w-full p-2 border rounded"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block mb-1">Description</label>
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={(e) =>
+                      setFormData({ ...formData, description: e.target.value })
+                    }
+                    rows="3"
+                    className="w-full p-2 border rounded"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end space-x-3 mt-6">
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="px-4 py-2 border rounded"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-pizza-red text-white rounded hover:bg-red-700"
+                >
+                  {isEditing ? 'Update' : 'Add'} Item
+                </button>
+              </div>
+            </form>
           </div>
-        )}
-      </div>
-    </>
-  )
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default AddItems;
