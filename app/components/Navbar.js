@@ -21,7 +21,7 @@ export default function Navbar() {
   
   const router = useRouter()
   const signOutFunc = () => {
-    localStorage.clear()
+    localStorage.removeItem('adminAuth','true')
     router.push('/login')
   }
   return (
