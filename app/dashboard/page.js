@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Orders from './orders/page';
-import AddItem from './addItems/page';
+import dynamic from 'next/dynamic';
 
 function Dashboard() {
   const [activeSection, setActiveSection] = useState('orders'); // 'orders' or 'addItems'
-
+  const AddItem = dynamic(() => import ('./addItems/page'),{ssr:false})
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />

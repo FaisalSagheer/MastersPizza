@@ -27,12 +27,16 @@ function AddItems() {
 
   // Load items from localStorage (or return empty array)
   const getMenuItems = () => {
-    return JSON.parse(localStorage.getItem('menuItems')) || [];
+    if (typeof window !== 'undefined') {
+      return JSON.parse(localStorage.getItem('menuItems')) || [];
+    }
+    return []; // Fallback for SSR
   };
 
-  // Save items to localStorage
   const saveMenuItems = (items) => {
-    localStorage.setItem('menuItems', JSON.stringify(items));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('menuItems', JSON.stringify(items));
+    }
   };
 
  
