@@ -1,3 +1,6 @@
+
+'use client'
+
 import React, { useState, useRef } from 'react';
 import { FiTrash2, FiEdit, FiPlus, FiRefreshCw } from 'react-icons/fi';
 
