@@ -1,6 +1,6 @@
 'use client'
 
-import React,{ useState } from 'react'
+import React,{ useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Navbar from "./components/Navbar"
 
@@ -9,12 +9,12 @@ import Home from './home/page'
 import Cart from './components/Cart'
 import Dashboard from './dashboard/page'
 import Login from './login/page'
+import PreLoading from './components/Loading'
 
 export default function Page() {
   const pathname = usePathname()
   const [isCartOpen, setIsCartOpen] = useState(false)
 
-  // Determine which page to show based on the current path
   const renderPageContent = () => {
     switch(pathname) {
       case '/dashboard':
@@ -29,13 +29,26 @@ export default function Page() {
     }
   }
 
+  const [Loading, setLoading] = useState(true)
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+  },[])
+
   return (
-    <>
+    <>{Loading?<PreLoading/>:<>
+
       <Navbar setIsCartOpen={setIsCartOpen} />
 
       {renderPageContent()}
+      {/* <Home/>
+      <Dashboard/>
+      <Checkout/>
+      <Login/> */}
       <Cart open={isCartOpen} onClose={() => setIsCartOpen(false)} />
-
+      </>
+    }
     </>
   )
 }

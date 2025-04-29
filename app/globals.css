@@ -1,6 +1,7 @@
 @theme {
-  --color-pizza-red: #E30613;
-  --color-pizza-yellow: #FFC72C;
+  --color-pizza-red: #F9A825;
+  --color-pizza-yellow: #2B2B2B;
+  --color-pizza-black:#2B2B2B;
 }
 
 .custom-navigation {
@@ -12,7 +13,6 @@
 .swiper-button-prev {
   display: none;
 }
-
 
 @import "tailwindcss";
 

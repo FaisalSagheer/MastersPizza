@@ -13,7 +13,6 @@ const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Admin credentials (in production, this would be handled by backend)
   const ADMIN_CREDENTIALS = {
     username: 'admin',
     password: 'admin@1234'
@@ -88,8 +87,8 @@ const Page = () => {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Admin Sign In
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Access your restaurant management dashboard
+          <p className="mt-2 text-center text-sm text-gray-600 font-[inter] capitalize">
+            Access your shop management dashboard
           </p>
         </div>
 
@@ -171,7 +170,7 @@ const Page = () => {
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   <input
                     id="remember-me"
                     name="remember-me"
@@ -181,10 +180,10 @@ const Page = () => {
                   <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                     Remember me
                   </label>
-                </div>
+                </div> */}
 
-                <div className="text-sm">
-                  <a href="#" className="font-medium text-pizza-red hover:text-red-800">
+                <div className="text-xs font-[inter]">
+                  <a href="#" className="font-medium text-pizza-red hover:text-pizza-yellow">
                     Forgot password?
                   </a>
                 </div>
@@ -194,7 +193,7 @@ const Page = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${isLoading ? 'bg-red-400' : 'bg-pizza-red hover:bg-red-800'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pizza-red transition-colors`}
+                  className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${isLoading ? 'bg-red-400' : 'bg-pizza-red hover:bg-pizza-yellow'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pizza-red transition-colors`}
                 >
                   {isLoading ? (
                     <>

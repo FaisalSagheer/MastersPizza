@@ -75,6 +75,7 @@ export default function Navbar() {
             >
               <FaShoppingCart className="text-xl" />
             </button>
+            <span className='relative bottom-3 right-6'>7</span>
           </div>
         </div>
       </div>

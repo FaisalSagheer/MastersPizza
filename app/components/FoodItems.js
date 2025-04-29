@@ -125,7 +125,7 @@ export default function FoodItems() {
         <Featured />
       </div>
       <div ref={drinkRef}>
-        <Drinks />
+        {/* <Drinks /> */}
       </div>
     </>
   );

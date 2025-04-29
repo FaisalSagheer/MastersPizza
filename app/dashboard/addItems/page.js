@@ -3,6 +3,7 @@
 
 import React, { useState, useRef } from 'react';
 import { FiTrash2, FiEdit, FiPlus, FiRefreshCw } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 function AddItems() {
   const [showAddItemModal, setShowAddItemModal] = useState(false);
@@ -13,7 +14,8 @@ function AddItems() {
     category: 'pizza',
     price: '',
     description: '',
-    image: null,
+    src: null,
+    slug:'',
   });
   const [errors, setErrors] = useState({});
   const fileInputRef = useRef(null);
@@ -46,7 +48,7 @@ function AddItems() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData((prev) => ({ ...prev, image: reader.result }));
+        setFormData((prev) => ({ ...prev, src: reader.result }));
       };
       reader.readAsDataURL(file);
     }
@@ -93,7 +95,8 @@ function AddItems() {
         category: item.category,
         price: item.price,
         description: item.description,
-        image: item.image,
+        src: item.src,
+        slug: item.slug,
       });
       setIsEditing(true);
       setCurrentItemId(id);
@@ -121,7 +124,8 @@ function AddItems() {
       category: 'pizza',
       price: '',
       description: 'No Description',
-      image: null,
+      src: null,
+      slug:''
     });
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
@@ -136,7 +140,7 @@ function AddItems() {
          
           <button
             onClick={() => setShowAddItemModal(true)}
-            className="flex items-center px-3 py-2 bg-pizza-red text-white rounded hover:bg-red-700"
+            className="flex items-center px-3 py-2 bg-pizza-red text-white rounded hover:bg-pizza-yellow"
           >
             <FiPlus className="mr-1" /> Add Item
           </button>
@@ -159,18 +163,18 @@ function AddItems() {
               <th className="px-4 py-2 text-left">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='font-[inter]'>
             {menuItems.map((item) => (
               <tr key={item.id}>
-                <td className="px-4 py-2">
-                  {item.image && (
+                <Link href={item.slug} className="px-4 py-2">
+                  {item.src && (
                     <img
-                      src={item.image}
+                      src={item.src}
                       alt={item.name}
                       className="w-12 h-12 object-cover rounded"
                     />
                   )}
-                </td>
+                </Link>
                 <td className="px-4 py-2">{item.name}</td>
                 <td className="px-4 py-2">{item.description}</td>
                 <td className="px-4 py-2 capitalize">{item.category}</td>
@@ -287,7 +291,7 @@ function AddItems() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-pizza-red text-white rounded hover:bg-red-700"
+                  className="px-4 py-2 bg-pizza-red text-white rounded hover:bg-pizza-black"
                 >
                   {isEditing ? 'Update' : 'Add'} Item
                 </button>
