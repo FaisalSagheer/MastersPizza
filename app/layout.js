@@ -1,5 +1,5 @@
 
-import { Anton, Bangers, Chewy, Fredoka, Inter, Lobster, Montserrat, Pacifico } from 'next/font/google';
+import { Inter, Lobster} from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({

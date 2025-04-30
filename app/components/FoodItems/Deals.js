@@ -6,7 +6,7 @@ const Deals = () => {
 
 
   return (
-    <section className="py-16 bg-white">
+    <section className="lg:py-10 bg-white">
       <div className="py-12 px-10 lg:px-36 max-w-7xl">
         <h2 className="text-3xl font-bold text-center lg:text-start">Hot Deals</h2>
 

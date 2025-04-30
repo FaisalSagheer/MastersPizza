@@ -28,6 +28,36 @@ export const menu = [
         price: "Rs. 1200",
         crossedPrice: "Rs. 950",
         slug: "pepperoni-feast",
+    },
+    {
+        id: 4,
+        src: "assets/pizza.png",
+        name: "Pepperoni Feast",
+        alt: "Pizza",
+        subtitle: "Loaded with premium pepperoni.",
+        price: "Rs. 1200",
+        crossedPrice: "Rs. 950",
+        slug: "pepperoni-feast",
+    },
+    {
+        id: 5,
+        src: "assets/pizza.png",
+        name: "Pepperoni Feast",
+        alt: "Pizza",
+        subtitle: "Loaded with premium pepperoni.",
+        price: "Rs. 1200",
+        crossedPrice: "Rs. 950",
+        slug: "pepperoni-feast",
+    },
+    {
+        id: 6,
+        src: "assets/pizza.png",
+        name: "Pepperoni Feast",
+        alt: "Pizza",
+        subtitle: "Loaded with premium pepperoni.",
+        price: "Rs. 1200",
+        crossedPrice: "Rs. 950",
+        slug: "pepperoni-feast",
     }
 ]
 

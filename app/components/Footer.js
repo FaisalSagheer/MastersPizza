@@ -21,10 +21,10 @@ const Footer = () => {
             <p className='mb-4 font-[inter]'>4:00 P.M To 3:00 A.M</p>
             <h3 className="text-xl font-bold mb-4 bg-pizza-yellow">Follow Us</h3>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-pizza-yellow"><FaFacebook className="text-xl" /></a>
-              <a href="#" className="hover:text-pizza-yellow"><FaInstagram className="text-xl" /></a>
-              <a href="#" className="hover:text-pizza-yellow"><FaTwitter className="text-xl" /></a>
-              <a href="#" className="hover:text-pizza-yellow"><FaYoutube className="text-xl" /></a>
+              <a href="#" className="hover:text-pizza-red"><FaFacebook className="text-xl" /></a>
+              <a href="#" className="hover:text-pizza-red"><FaInstagram className="text-xl" /></a>
+              <a href="#" className="hover:text-pizza-red"><FaTwitter className="text-xl" /></a>
+              <a href="#" className="hover:text-pizza-red"><FaYoutube className="text-xl" /></a>
             </div>
           </div>
 

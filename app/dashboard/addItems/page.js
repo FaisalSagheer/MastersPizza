@@ -3,7 +3,6 @@
 
 import React, { useState, useRef } from 'react';
 import { FiTrash2, FiEdit, FiPlus, FiRefreshCw } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
 
 function AddItems() {
   const [showAddItemModal, setShowAddItemModal] = useState(false);
@@ -15,7 +14,6 @@ function AddItems() {
     price: '',
     description: '',
     src: null,
-    slug:'',
   });
   const [errors, setErrors] = useState({});
   const fileInputRef = useRef(null);
@@ -96,7 +94,6 @@ function AddItems() {
         price: item.price,
         description: item.description,
         src: item.src,
-        slug: item.slug,
       });
       setIsEditing(true);
       setCurrentItemId(id);
@@ -125,7 +122,6 @@ function AddItems() {
       price: '',
       description: 'No Description',
       src: null,
-      slug:''
     });
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
@@ -166,7 +162,7 @@ function AddItems() {
           <tbody className='font-[inter]'>
             {menuItems.map((item) => (
               <tr key={item.id}>
-                <Link href={item.slug} className="px-4 py-2">
+                <td className="px-4 py-2">
                   {item.src && (
                     <img
                       src={item.src}
@@ -174,7 +170,7 @@ function AddItems() {
                       className="w-12 h-12 object-cover rounded"
                     />
                   )}
-                </Link>
+                </td>
                 <td className="px-4 py-2">{item.name}</td>
                 <td className="px-4 py-2">{item.description}</td>
                 <td className="px-4 py-2 capitalize">{item.category}</td>

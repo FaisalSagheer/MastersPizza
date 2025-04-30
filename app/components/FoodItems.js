@@ -10,6 +10,7 @@ import Featured from './FoodItems/Featured';
 import Deals from './FoodItems/Deals';
 import Special from './FoodItems/FestiveDeals';
 import Drinks from './FoodItems/Drinks';
+import Search from './Search';
 
 
 export default function FoodItems() {
@@ -114,7 +115,7 @@ export default function FoodItems() {
           </button>
         </div>
       </section>
-
+      <Search/>
       <div ref={specialRef}>
         <Special />
       </div>
@@ -125,7 +126,7 @@ export default function FoodItems() {
         <Featured />
       </div>
       <div ref={drinkRef}>
-        {/* <Drinks /> */}
+        <Drinks />
       </div>
     </>
   );
