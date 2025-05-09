@@ -2,12 +2,20 @@
 import { FaShoppingCart } from 'react-icons/fa';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import Cart from './Cart';
+import Cart from './CartTab/CartTab';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
 
 export default function Navbar() {
-  const [isCartOpen, setIsCartOpen] = useState(false);
 
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [totalQuantity, setTotalquantity] = useState(0)
+  const carts = useSelector(store => store.cart.items)
+  useEffect(() => {
+    let total = 0;
+    carts.forEach(item => { total += item.quantity });
+    setTotalquantity(total)
+  })
   const [isAdmin, setAdmin] = useState(false)
 
   useEffect(() => {
@@ -18,11 +26,11 @@ export default function Navbar() {
     checkStatus()
     window.addEventListener('storage', checkStatus)
   }, [])
-  
+
   const router = useRouter()
   const signOutFunc = () => {
-    localStorage.removeItem('adminAuth','true')
-    router.push('/login')
+    localStorage.removeItem('adminAuth', 'true')
+    router.push('/Pages/login')
   }
   return (
     <header className="bg-pizza-red text-white shadow-lg px-10 lg:px-0">
@@ -45,7 +53,7 @@ export default function Navbar() {
               isAdmin && (
                 <>
 
-                  <Link href="/dashboard"
+                  <Link href="/Pages/dashboard"
                     className="hover:text-pizza-yellow transition-colors">
                     Dashboard
                   </Link>
@@ -61,9 +69,9 @@ export default function Navbar() {
             }
 
 
-            {/* <Link href="/login" className="hover:text-pizza-yellow transition-colors">
-              Login
-            </Link> */}
+            <Link href="/details" className="hover:text-pizza-yellow transition-colors">
+              Details
+            </Link>
 
 
 
@@ -75,7 +83,7 @@ export default function Navbar() {
             >
               <FaShoppingCart className="text-xl" />
             </button>
-            <span className='relative bottom-3 right-6'>7</span>
+            <span className='relative bottom-3 right-6'>{totalQuantity}</span>
           </div>
         </div>
       </div>

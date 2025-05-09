@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { FaLock, FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
-import Navbar from '../components/Navbar';
+import Navbar from '../../components/Navbar';
 
 const Page = () => {
   const [formData, setFormData] = useState({
@@ -62,7 +62,7 @@ const Page = () => {
           formData.password === ADMIN_CREDENTIALS.password) {
           // Successful login
           localStorage.setItem('adminAuth', 'true');
-          window.location.href = '/dashboard';
+          window.location.href = '/Pages/dashboard';
         } else {
           setErrors({
             ...errors,
@@ -70,7 +70,7 @@ const Page = () => {
           });
         }
         setIsLoading(false);
-      }, 1500);
+      }, 2000);
     }
   };
 

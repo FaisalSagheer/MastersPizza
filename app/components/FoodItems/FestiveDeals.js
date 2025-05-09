@@ -9,7 +9,7 @@ export default function Special() {
       <h2 className="text-3xl font-bold text-center pl-48">Our Special Pizzas</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-30 gap-y-2 pl-8">
         {
-          menu.map((items, key) => (
+          menu.filter(item => item.categories === 'SpecialPizza').map((items, key) => (
             <ProductCard key={key} data={items} />
           ))
         }

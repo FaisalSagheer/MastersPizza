@@ -9,7 +9,7 @@ function ProductCard(props) {
     const { id, src, alt, price, name, subtitle, slug } = props.data
     
     const carts = useSelector(store => store.cart.items)
-    console.log(carts)
+    // console.log(carts)
     const dispatch = useDispatch();
     const handleAddToCart = () => {
         dispatch(addToCart({

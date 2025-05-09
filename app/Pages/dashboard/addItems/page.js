@@ -2,7 +2,7 @@
 'use client'
 
 import React, { useState, useRef } from 'react';
-import { FiTrash2, FiEdit, FiPlus, FiRefreshCw } from 'react-icons/fi';
+import { FiTrash2, FiEdit, FiPlus} from 'react-icons/fi';
 
 function AddItems() {
   const [showAddItemModal, setShowAddItemModal] = useState(false);

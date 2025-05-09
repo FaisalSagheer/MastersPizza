@@ -1,17 +1,17 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
-import Navbar from "./components/Navbar"
-
-import Checkout from './checkout/page'
-import Home from './home/page'
-import Cart from './components/Cart'
-import Dashboard from './dashboard/page'
-import Login from './login/page'
-import PreLoading from './components/Loading'
-import { Provider } from 'react-redux'
-import { store } from './store'
+import React, { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import Checkout from './Pages/checkout/page';
+import Cart from './components/CartTab/CartTab';
+import Dashboard from './Pages/dashboard/page';
+import Login from './Pages/login/page';
+import PreLoading from './components/Loading';
+import { Provider } from 'react-redux';
+import { stores } from './store';
+import Navbar from './components/Navbar';
+import Home from './Pages/home/page';
+import Details from './details/page';
 
 export default function Page() {
   const pathname = usePathname()
@@ -19,6 +19,8 @@ export default function Page() {
 
   const renderPageContent = () => {
     switch (pathname) {
+      case '/details':
+        return <Details />
       case '/dashboard':
         return <Dashboard />
       case '/login':
@@ -39,21 +41,17 @@ export default function Page() {
   }, [])
 
   return (
-    <Provider store={store}>
+    <Provider store={stores}>
 
-      <>{Loading ? <PreLoading /> : <>
+      {/* <>{Loading ? <PreLoading /> : <> */}
 
         <Navbar setIsCartOpen={setIsCartOpen} />
 
         {renderPageContent()}
-        {/* <Home/>
-      <Dashboard/>
-      <Checkout/>
-      <Login/> */}
         <Cart open={isCartOpen} onClose={() => setIsCartOpen(false)} />
-      </>
-      }
-      </>
+      {/* </>
+      } */}
+      {/* </> */}
     </Provider>
 
   )

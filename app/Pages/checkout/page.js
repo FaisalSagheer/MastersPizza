@@ -4,9 +4,9 @@
 import React, { useState } from 'react';
 import { FiChevronDown, FiChevronUp, FiTrash2 } from 'react-icons/fi';
 import { FaCcVisa, FaCcMastercard, FaCcApplePay } from 'react-icons/fa';
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import Navbar from '../components/Navbar';
+import Navbar from '../../components/Navbar';
 import Link from 'next/link';
 
 const CheckOut = () => {
@@ -168,18 +168,18 @@ const CheckOut = () => {
                         {/* Branches Dropdown */}
             <Menu as="div" className="relative inline-block text-left">
               <div>
-                <Menu.Button className="inline-flex items-center justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-pizza-red shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                <MenuButton className="inline-flex items-center justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-pizza-red shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                   Branches
                   <ChevronDownIcon
                     className="-mr-1 h-5 w-5 text-pizza-red"
                     aria-hidden="true"
                   />
-                </Menu.Button>
+                </MenuButton>
               </div>
 
-              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="py-1">
-                  <Menu.Item>
+                  <MenuItem>
                     {({ active }) => (
                       <Link
                         href="/dashboard"  
@@ -189,8 +189,8 @@ const CheckOut = () => {
                         Branch 1
                       </Link>
                     )}
-                  </Menu.Item>
-                  <Menu.Item>
+                  </MenuItem>
+                  <MenuItem>
                     {({ active }) => (
                       <Link
                         href="/dashboard"
@@ -200,9 +200,9 @@ const CheckOut = () => {
                         Branch 2
                       </Link>
                     )}
-                  </Menu.Item>
+                  </MenuItem>
                 </div>
-              </Menu.Items>
+              </MenuItems>
             </Menu>
                 </form>
               </div>
