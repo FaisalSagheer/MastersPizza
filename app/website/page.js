@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import Checkout from '../Pages/checkout/page';
+// import Checkout from '../Pages/checkout/page';
 import CartTab from '../components/CartTab/CartTab';
 import Dashboard from '../Pages/dashboard/page';
 import Login from '../Pages/login/page';
@@ -22,8 +22,8 @@ function Website() {
                 return <Dashboard />
             case '/login':
                 return <Login />
-            case '/checkout':
-                return <Checkout />
+            // case '/checkout':
+            //     return <Checkout />
             case '/':
             default:
                 return <Home />
