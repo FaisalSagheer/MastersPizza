@@ -53,7 +53,6 @@ const CheckOut = () => {
     ));
   };
 
-
   // Calculate totals
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const deliveryFee = subtotal > 1000 ? 0 : 150;

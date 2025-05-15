@@ -15,16 +15,16 @@ function CartItem(props) {
         setDetail(findDetail)
     }, [productId])
     // console.log(detail)
-    const HandleMinus = ()=>{
+    const HandleMinus = () => {
         dispatch(ChangeQuantity({
-            productId:productId,
-            quantity:quantity-1
+            productId: productId,
+            quantity: quantity - 1
         }))
     }
     const HandleAdd = () => {
         dispatch(ChangeQuantity({
-            productId:productId,
-            quantity:quantity+1
+            productId: productId,
+            quantity: quantity + 1
         }))
     }
     return (

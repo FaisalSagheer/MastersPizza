@@ -1,23 +1,32 @@
+
+
 'use client'
+
+
+import React, { useEffect, useState } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import Cart from './CartTab/CartTab';
 import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleStatusTab } from '../store/cart';
 
 export default function Navbar() {
 
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [totalQuantity, setTotalquantity] = useState(0)
+
   const carts = useSelector(store => store.cart.items)
+  const dispatch = useDispatch();
+  const handleOpenCart = () => {
+    dispatch(toggleStatusTab())
+  }
+
   useEffect(() => {
     let total = 0;
     carts.forEach(item => { total += item.quantity });
     setTotalquantity(total)
-  })
-  const [isAdmin, setAdmin] = useState(false)
+  }, [carts])
 
+  const [isAdmin, setAdmin] = useState(false)
   useEffect(() => {
     const checkStatus = () => {
       const adminAuth = (localStorage.getItem("adminAuth"))
@@ -68,17 +77,13 @@ export default function Navbar() {
 
             }
 
-
             <Link href="/details" className="hover:text-pizza-yellow transition-colors">
               Details
             </Link>
 
-
-
-
             <button
               className="hover:text-pizza-yellow transition-colors"
-              onClick={() => setIsCartOpen(true)}
+              onClick={handleOpenCart}
               aria-label="Shopping Cart"
             >
               <FaShoppingCart className="text-xl" />
@@ -88,8 +93,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Shopping Cart Modal */}
-      <Cart open={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </header>
   );
 }
