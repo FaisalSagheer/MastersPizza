@@ -2,6 +2,8 @@
 
 import { useState, useRef } from 'react';
 import Navbar from '../components/Navbar';
+import { Provider } from 'react-redux';
+import { stores } from '../store';
 
 export default function AddItem() {
   const [formData, setFormData] = useState({
@@ -72,6 +74,8 @@ export default function AddItem() {
   };
 
   return (
+    <Provider store={stores}>
+
     <div className="min-h-screen bg-gray-100">
       <Navbar />
       
@@ -212,5 +216,7 @@ export default function AddItem() {
         </form>
       </div>
     </div>
+    </Provider>
+
   );
 }
