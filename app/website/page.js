@@ -9,6 +9,8 @@ import Login from '../Pages/login/page';
 import Navbar from '../components/Navbar';
 import Home from '../Pages/home/page';
 import Details from '../details/page';
+import { Provider } from 'react-redux';
+import { stores } from '../store';
 
 
 function Website() {
@@ -39,7 +41,7 @@ function Website() {
     const [isCartOpen, setIsCartOpen] = useState(false);
 
     return (
-        <>
+        <Provider store={stores}>
 
             {/* <>{Loading ? <PreLoading /> : <> */}
 
@@ -52,7 +54,7 @@ function Website() {
             {/* </>
       } */}
             {/* </> */}
-        </>
+        </Provider>
     )
 }
 
