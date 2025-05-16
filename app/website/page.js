@@ -11,6 +11,7 @@ import Home from '../Pages/home/page';
 import Details from '../details/page';
 import { Provider } from 'react-redux';
 import { stores } from '../store';
+import PreLoading from '../components/Loading';
 
 
 function Website() {
@@ -43,7 +44,8 @@ function Website() {
     return (
         <Provider store={stores}>
 
-            {/* <>{Loading ? <PreLoading /> : <> */}
+            <>{Loading ? <PreLoading /> : 
+            <>
 
 
             <main >
@@ -51,9 +53,9 @@ function Website() {
                 {renderPageContent()}
             </main >
             <CartTab isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-            {/* </>
-      } */}
-            {/* </> */}
+            </>
+      }
+            </>
         </Provider>
     )
 }
