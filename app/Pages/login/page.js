@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { FaLock, FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import Navbar from '../../components/Navbar';
+import { Provider } from 'react-redux';
+import { stores } from '@/app/store';
 
 const Page = () => {
   const [formData, setFormData] = useState({
@@ -75,7 +77,7 @@ const Page = () => {
   };
 
   return (
-    <>
+    <Provider store={stores}>
       <div className="min-h-screen bg-gray-100 ">
         <Navbar />
         <div className="sm:mx-auto sm:w-full sm:max-w-md pt-15 lg:pt-20">
@@ -225,7 +227,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-    </>
+    </Provider>
   );
 };
 

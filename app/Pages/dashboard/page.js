@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import dynamic from 'next/dynamic';
+import { Provider } from 'react-redux';
+import { stores } from '@/app/store';
 
 function Dashboard() {
   const [activeSection, setActiveSection] = useState('orders');
@@ -21,6 +23,8 @@ function Dashboard() {
 
   }
   return (
+    <Provider store={stores}>
+
     <div className="min-h-screen bg-gray-100">
       <Navbar />
       <div className="p-6 lg:p-0 lg:px-20 lg:pt-10">
@@ -60,6 +64,8 @@ function Dashboard() {
         )}
       </div>
     </div>
+    </Provider>
+
   );
 }
 

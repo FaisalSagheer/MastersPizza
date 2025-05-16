@@ -7,18 +7,17 @@ import React, { useEffect, useState } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleStatusTab } from '../store/cart';
+import { useSelector } from 'react-redux';
 
-export default function Navbar() {
+export default function Navbar({onCartClick}) {
 
   const [totalQuantity, setTotalquantity] = useState(0)
 
   const carts = useSelector(store => store.cart.items)
-  const dispatch = useDispatch();
-  const handleOpenCart = () => {
-    dispatch(toggleStatusTab())
-  }
+  const [isCartOpen, setCartOpen] = useState(false)
+  // const handleOpenCart = () => {
+  //   setCartOpen(true)
+  // }
 
   useEffect(() => {
     let total = 0;
@@ -83,7 +82,7 @@ export default function Navbar() {
 
             <button
               className="hover:text-pizza-yellow transition-colors"
-              onClick={handleOpenCart}
+              onClick={onCartClick}
               aria-label="Shopping Cart"
             >
               <FaShoppingCart className="text-xl" />
@@ -92,7 +91,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
+      {/* <CartTab isOpen={isCartOpen} /> */}
     </header>
   );
 }

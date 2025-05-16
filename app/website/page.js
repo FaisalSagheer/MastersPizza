@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-// import Checkout from '../Pages/checkout/page';
+import Checkout from '../Pages/checkout/page';
 import CartTab from '../components/CartTab/CartTab';
 import Dashboard from '../Pages/dashboard/page';
 import Login from '../Pages/login/page';
@@ -13,7 +13,6 @@ import Details from '../details/page';
 
 function Website() {
     const pathname = usePathname()
-    
     const renderPageContent = () => {
         switch (pathname) {
             case '/details':
@@ -22,8 +21,8 @@ function Website() {
                 return <Dashboard />
             case '/login':
                 return <Login />
-            // case '/checkout':
-            //     return <Checkout />
+            case '/checkout':
+                return <Checkout />
             case '/':
             default:
                 return <Home />
@@ -37,18 +36,19 @@ function Website() {
         }, 2000)
     }, [])
 
-    return (
+    const [isCartOpen, setIsCartOpen] = useState(false);
 
+    return (
         <>
 
             {/* <>{Loading ? <PreLoading /> : <> */}
 
 
-            <main>
-                <Navbar />
+            <main >
+                <Navbar onCartClick={() => setIsCartOpen(true)} />
                 {renderPageContent()}
-            </main>
-            <CartTab />
+            </main >
+            <CartTab isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
             {/* </>
       } */}
             {/* </> */}

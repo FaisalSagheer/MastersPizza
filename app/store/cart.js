@@ -33,15 +33,9 @@ const cartSlice = createSlice({
                 state.items = (state.items).filter(item => item.productId !== productId)
             }
         },
-        toggleStatusTab(state) {
-            if (state.StatusTab === false) {
-                state.StatusTab = true
-            }
-            else {
-                state.StatusTab === false
-            }
-        }
+        
+
     }
 })
-export const { addToCart, ChangeQuantity, toggleStatusTab } = cartSlice.actions;
+export const { addToCart, ChangeQuantity} = cartSlice.actions;
 export default cartSlice.reducer;

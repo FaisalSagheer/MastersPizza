@@ -115,19 +115,23 @@ export default function FoodItems() {
           </button>
         </div>
       </section>
-      <Search/>
-      <div ref={specialRef}>
-        <Special />
+      <Search />
+      <div className='py-10 lg:py-5'>
+
+        <div ref={specialRef}>
+          <Special />
+        </div>
+        <div ref={dealsRef}>
+          <Deals />
+        </div>
+        <div ref={featuredRef}>
+          <Featured />
+        </div>
+        <div ref={drinkRef}>
+          <Drinks />
+        </div>
       </div>
-      <div ref={dealsRef}>
-        <Deals />
-      </div>
-      <div ref={featuredRef}>
-        <Featured />
-      </div>
-      <div ref={drinkRef}>
-        <Drinks />
-      </div>
+
     </>
   );
 }

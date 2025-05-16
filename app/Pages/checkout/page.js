@@ -8,6 +8,8 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import Navbar from '../../components/Navbar';
 import Link from 'next/link';
+import { Provider } from 'react-redux';
+import { stores } from '@/app/store';
 
 const CheckOut = () => {
 
@@ -60,7 +62,7 @@ const CheckOut = () => {
   const total = subtotal + deliveryFee + tax;
 
   return (
-    <>
+    <Provider store={stores}>
       <Navbar />
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
@@ -313,7 +315,7 @@ const CheckOut = () => {
           </div>
         </div>
       </div>
-    </>
+    </Provider>
 
   );
 };

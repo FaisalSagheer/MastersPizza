@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import { addToCart } from '../store/cart';
 import { useParams } from 'next/navigation';
-import { pricing } from '../constants';
+import { menu, pricing } from '../constants';
 import { useDispatch } from 'react-redux';
 
 function item() {
@@ -18,9 +18,9 @@ function item() {
     if (findDetail.length > 0) {
       setDetail(findDetail[0])
     }
-    else {
-      window.location.href = '/'
-    }
+    // else {
+    //   window.location.href = '/'
+    // }
   }, [slug])
   const handleMinus = () => {
     setQuantity(quantity - 1 < 1 ? 1 : quantity - 1)

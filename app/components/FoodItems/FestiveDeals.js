@@ -6,7 +6,7 @@ export default function Special() {
 
   return (
     <section className="pt-12 lg:py-12 px-10 lg:px-36 max-w-7xl">
-      <h2 className="text-3xl font-bold text-center pl-48">Our Special Pizzas</h2>
+      <h2 className="text-3xl font-bold text-center lg:pl-48">Our Special Pizzas</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-30 gap-y-2 pl-8">
         {
           menu.filter(item => item.categories === 'SpecialPizza').map((items, key) => (

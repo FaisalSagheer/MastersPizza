@@ -1,35 +1,67 @@
 'use client'
 
-import React from 'react'
-import CartItem from './CartItem'; 
+import React, { Fragment} from 'react'
+import CartItem from './CartItem';
 import { useSelector } from 'react-redux';
-function CartTab() {
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Transition} from '@headlessui/react';
+function CartTab({isOpen,onClose}) {
 
   const carts = useSelector(store => store.cart.items);
-  const StatusTab = useSelector(store => store.cart.StatusTab);
-  
-  
+
   return (
     <>
-      <div className={`fixed top-0 right-0 z-10 bg-white shadow-2xl w-96 h-full grid grid-rows-[60px_1fr_60px] overflow-auto
-        translate transition-transform duration-500
-        ${StatusTab === false ? "translate-x-full" : ""}
-        `}>
-        <h2 className='p-5 text-pizza-yellow text-2xl'>Meal Cart</h2>
-        <div className='p-5'>
-          {carts.map((item, key) =>
-            <CartItem key={key} data={item} />
-          )}
+    <Transition show={isOpen} as={Fragment}>
+
+      <Dialog  onClose={onClose} className="relative z-10">
+        <DialogBackdrop
+          transition
+          className="fixed inset-0 bg-gray-500/75 transition-opacity duration-500 ease-in-out data-closed:opacity-0"
+        />
+
+        <div className="fixed inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full">
+              <DialogPanel 
+                transition
+                className="pointer-events-auto relative transform transition duration-500 ease-in-out data-closed:translate-x-full sm:duration-700"
+              >
+               
+                <div className="flex flex-col h-full overflow-auto bg-white py-6 shadow-xl">
+                  <div className="px-4 sm:px-6">
+                    <DialogTitle className="text-2xl font-semibold text-pizza-red">Meal Cart</DialogTitle>
+                  </div>
+                  <div className='p-5'>
+                    {carts.map((item, key) =>
+                      <CartItem key={key} data={item} />
+                    )}
+                  </div>
+                  <div className='text-center my-auto -mb-3'>
+                    <button className='px-40 py-3 rounded-md bg-pizza-red text-white'
+                    onClick={()=>window.location.href='/Pages/checkout'}
+                  //  onClick={()=>OnClose}
+                   >Check Out</button>
+                  </div>
+                </div>
+              </DialogPanel>
+            </div>
+          </div>
         </div>
-        <div className='text-center'>
-          <button className='px-35 py-3 rounded-md bg-pizza-red text-white' 
-          // onClick={()=>window.location.href='/Pages/checkout'}
-            >Check Out</button>
-          {/* <button className='px-10 py-5 rounded-md bg-pizza-yellow text-white' >Cancel</button> */}
-        </div>
-      </div>
+      </Dialog>
+    </Transition>
+
     </>
   )
 }
 
 export default CartTab
+
+//  <div className='p-5'>
+//           {carts.map((item, key) =>
+//             <CartItem key={key} data={item} />
+//           )}
+//         </div>
+//         <div className='text-center'>
+//           <button className='px-35 py-3 rounded-md bg-pizza-red text-white'
+//           // onClick={()=>window.location.href='/Pages/checkout'}
+//           >Check Out</button>
+//         </div>
