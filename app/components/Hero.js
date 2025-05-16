@@ -4,8 +4,8 @@ const Hero = () => {
   return (
     <section className="relative bg-gray-100">
       {/* Hero image */}
-      <div className="h-96 md:h-screen max-h-[600px] bg-cover bg-center" 
-           style={{backgroundImage: "url('assets/HeroImg.jpg')"}} onLoad={lazy}>
+      <div >
+            <img src='assets/HeroImg.jpg' className='h-96 md:h-screen max-h-[600px] min-w-full' alt='/' loading='lazy'/>
         <div className="absolute inset-0 flex items-center">
           <div className="container mx-auto px-20 text-white text-center lg:text-start">
             <h1 className="text-4xl md:text-6xl font-bold mb-4">DELICIOUS PIZZA</h1>

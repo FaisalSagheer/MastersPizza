@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
-export default function Navbar({onCartClick}) {
+export default function Navbar({ onCartClick }) {
 
   const [totalQuantity, setTotalquantity] = useState(0)
 
@@ -80,6 +80,9 @@ export default function Navbar({onCartClick}) {
               Details
             </Link>
 
+            <Link href='/Pages/login'>
+              Login
+            </Link>
             <button
               className="hover:text-pizza-yellow transition-colors"
               onClick={onCartClick}
