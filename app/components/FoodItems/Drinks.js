@@ -36,8 +36,8 @@ function Drinks() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-30 gap-y-2 pl-8">
                         {menuItems.map((item) => (
-                            <div className="w-xs" key={item.id}>
-                                <div  className='flex justify-end relative top-16 left-20'>
+                            <div className="w-72 lg:w-xs" key={item.id}>
+                                <div  className='flex justify-end relative top-16 left-15 lg:left-20'>
                                     <img src={item.src} alt={item.alt} className="w-64" />
                                 </div>
                                 <div className='bg-white border-0 rounded-lg shadow py-5 pl-6'>

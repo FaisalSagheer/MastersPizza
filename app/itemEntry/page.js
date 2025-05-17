@@ -77,7 +77,6 @@ export default function AddItem() {
     <Provider store={stores}>
 
     <div className="min-h-screen bg-gray-100">
-      <Navbar />
       
       <div className="max-w-4xl mx-auto p-6">
         <h1 className="text-3xl font-bold text-pizza-red mb-6">Add New Menu Item</h1>

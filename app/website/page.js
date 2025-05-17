@@ -12,6 +12,7 @@ import Details from '../details/page';
 import { Provider } from 'react-redux';
 import { stores } from '../store';
 import PreLoading from '../components/Loading';
+import Product from '../components/ProductDetails/Product';
 
 
 function Website() {
@@ -40,21 +41,24 @@ function Website() {
     }, [])
 
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [isModal, setModal] = useState(false);
 
     return (
         <Provider store={stores}>
 
-            <>{Loading ? <PreLoading /> : 
-            <>
+            <>{Loading ? <PreLoading /> :
+                <>
 
 
-            <main >
-                <Navbar onCartClick={() => setIsCartOpen(true)} />
-                {renderPageContent()}
-            </main >
-            <CartTab isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-            </>
-      }
+                    <main >
+                        <Navbar onCartClick={() => setIsCartOpen(true)}
+                            DetailsClick={() => setModal(true)} />
+                        {renderPageContent()}
+                    </main >
+                    <CartTab isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+                    <Product isOpen={isModal} onClose={() => setModal(false)} />
+                </>
+            }
             </>
         </Provider>
     )

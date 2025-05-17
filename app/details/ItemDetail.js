@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 function item() {
 
   const dispatch = useDispatch();
-  const { slug } = useParams();
+  const { slug } = useParams(); 
   const [quantity, setQuantity] = useState(1)
   const [detail, setDetail] = useState([])
   useEffect(() => {

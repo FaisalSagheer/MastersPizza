@@ -26,7 +26,7 @@ function CartTab({isOpen,onClose}) {
                 className="pointer-events-auto relative transform transition duration-500 ease-in-out data-closed:translate-x-full sm:duration-700"
               >
                
-                <div className="flex flex-col h-full overflow-auto bg-white py-6 shadow-xl">
+                <div className="flex flex-col h-full overflow-auto bg-white py-6 shadow-xl px-5">
                   <div className="px-4 sm:px-6">
                     <DialogTitle className="text-2xl font-semibold text-pizza-red">Meal Cart</DialogTitle>
                   </div>
@@ -35,8 +35,8 @@ function CartTab({isOpen,onClose}) {
                       <CartItem key={key} data={item} />
                     )}
                   </div>
-                  <div className='text-center my-auto -mb-3'>
-                    <button className='px-40 py-3 rounded-md bg-pizza-red text-white'
+                  <div className='text-center my-auto -mb-3 '>
+                    <button className='px-35 py-3 rounded-md bg-pizza-red text-white'
                     onClick={()=>window.location.href='/Pages/checkout'}
                   //  onClick={()=>OnClose}
                    >Check Out</button>

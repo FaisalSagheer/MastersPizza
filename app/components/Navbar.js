@@ -9,15 +9,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
-export default function Navbar({ onCartClick }) {
+export default function Navbar({ onCartClick,DetailsClick }) {
 
   const [totalQuantity, setTotalquantity] = useState(0)
 
   const carts = useSelector(store => store.cart.items)
-  const [isCartOpen, setCartOpen] = useState(false)
-  // const handleOpenCart = () => {
-  //   setCartOpen(true)
-  // }
 
   useEffect(() => {
     let total = 0;
@@ -76,9 +72,9 @@ export default function Navbar({ onCartClick }) {
 
             }
 
-            <Link href="/details" className="hover:text-pizza-yellow transition-colors">
+            <button className="hover:text-pizza-yellow transition-colors" onClick={DetailsClick}>
               Details
-            </Link>
+            </button>
 
             <Link href='/Pages/login'>
               Login
@@ -94,7 +90,6 @@ export default function Navbar({ onCartClick }) {
           </div>
         </div>
       </div>
-      {/* <CartTab isOpen={isCartOpen} /> */}
     </header>
   );
 }
